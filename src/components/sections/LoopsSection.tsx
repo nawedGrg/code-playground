@@ -18,24 +18,9 @@ const LoopsSection = () => {
     }
   };
 
-  const codeExample = `// Loops repeat code multiple times
-// "for" loops are perfect when you know how many times
-
-for (let i = 1; i <= 5; i++) {
+  const codeExample = `for (let i = 1; i <= 5; i++) {
   console.log("Box number " + i);
-}
-
-// How it works:
-// let i = 1     → Start at 1
-// i <= 5        → Keep going while i is 5 or less
-// i++           → Add 1 to i after each loop
-
-// This prints:
-// Box number 1
-// Box number 2
-// Box number 3
-// Box number 4
-// Box number 5`;
+}`;
 
   return (
     <section id="loops" className="section-card">
