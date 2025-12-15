@@ -16,24 +16,13 @@ const ConditionsSection = () => {
     }
   };
 
-  const codeExample = `// Conditions let your code make decisions!
-// "if" checks if something is true
-
-let age = 18;
+  const codeExample = `let age = 18;
 
 if (age >= 18) {
-  // This runs if age is 18 or more
   console.log("You are an adult!");
 } else {
-  // This runs if age is less than 18
   console.log("You are a minor.");
-}
-
-// You can check many things:
-// age > 18   means "greater than 18"
-// age < 18   means "less than 18"
-// age === 18 means "exactly equal to 18"
-// age !== 18 means "not equal to 18"`;
+}`;
 
   return (
     <section id="conditions" className="section-card">

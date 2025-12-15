@@ -17,19 +17,12 @@ const DOMSection = () => {
     setTextChanged(true);
   };
 
-  const codeExample = `// The DOM is how JavaScript "sees" your webpage
-// We can find and change any part of the page!
+  const codeExample = `let heading = document.getElementById("myHeading");
 
-// Find an element by its ID
-let heading = document.getElementById("myHeading");
-
-// Change its text
 heading.textContent = "New Text Here!";
 
-// You can also change colors:
 heading.style.color = "orange";
 
-// Or add new content:
 heading.innerHTML = "<strong>Bold text!</strong>";`;
 
   return (

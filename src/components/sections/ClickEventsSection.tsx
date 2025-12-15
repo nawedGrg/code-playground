@@ -11,13 +11,8 @@ const ClickEventsSection = () => {
     setTimeout(() => setShowFeedback(false), 2000);
   };
 
-  const codeExample = `// This is a comment - it helps explain the code
-// Click events let JavaScript respond when you click something
+  const codeExample = `let myButton = document.getElementById("myButton");
 
-// First, we find a button on the page
-let myButton = document.getElementById("myButton");
-
-// Then we tell it what to do when clicked
 myButton.addEventListener("click", function() {
   alert("You clicked me!");
 });`;
