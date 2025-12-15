@@ -12,13 +12,18 @@ const VariablesSection = () => {
     setShowDemo(true);
   };
 
-  const codeExample = `let name = "Alex";
-let age = 25;
-let isHappy = true;
+  const codeExample = `// Variables are like boxes that store information
+// We use "let" to create a variable
 
-age = 26;
+let name = "Alex";     // This stores text (a "string")
+let age = 25;          // This stores a number
+let isHappy = true;    // This stores true or false (a "boolean")
 
-console.log("Hello, " + name);`;
+// You can change variables later:
+age = 26;  // Now age is 26!
+
+// You can also use the variable:
+console.log("Hello, " + name);  // Shows: Hello, Alex`;
 
   return (
     <section id="variables" className="section-card">

@@ -49,21 +49,28 @@ const MiniGameSection = () => {
     return () => clearInterval(timer);
   }, [isPlaying, score]);
 
-  const codeExample = `let score = 0;
+  const codeExample = `// This mini game uses everything we learned!
+
+// Variables to track the game
+let score = 0;
 let timeLeft = 10;
 
+// Click event on the target
 target.addEventListener("click", function() {
-  score = score + 1;
-  moveTarget();
+  score = score + 1;           // Add 1 to score
+  moveTarget();                // Move to new position
 });
 
+// Timer using setInterval (runs every 1 second)
 setInterval(function() {
-  timeLeft = timeLeft - 1;
+  timeLeft = timeLeft - 1;     // Subtract 1 from time
   
-  if (timeLeft <= 0) {
+  if (timeLeft <= 0) {         // Condition: time up?
     endGame();
   }
-}, 1000);`;
+}, 1000);
+
+// Moving the target uses random numbers and DOM`;
 
   return (
     <section id="mini-game" className="section-card">

@@ -14,12 +14,21 @@ const UserInputSection = () => {
     }
   };
 
-  const codeExample = `let nameInput = document.getElementById("nameInput");
+  const codeExample = `// Getting input from users is super useful!
+// First, we need an input field and a button in HTML
+
+// In JavaScript, we get the value like this:
+let nameInput = document.getElementById("nameInput");
 let userButton = document.getElementById("greetButton");
 
 userButton.addEventListener("click", function() {
+  // Get what the user typed
   let userName = nameInput.value;
+  
+  // Use it to create a greeting
   let message = "Hello, " + userName + "!";
+  
+  // Show the greeting
   alert(message);
 });`;
 
