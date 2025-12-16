@@ -10,11 +10,33 @@ interface CodeBlockProps {
 const CodeBlock = ({ code, onTryIt, showTryButton = true }: CodeBlockProps) => {
   // Simple syntax highlighting for display
   const highlightCode = (code: string) => {
-    return code
-      .replace(/(\/\/.*)/g, '<span class="code-comment">$1</span>')
-      .replace(/\b(let|const|var|function|if|else|for|return|document)\b/g, '<span class="code-keyword">$1</span>')
-      .replace(/(".*?"|'.*?'|`.*?`)/g, '<span class="code-string">$1</span>')
-      .replace(/\b(\d+)\b/g, '<span class="code-number">$1</span>');
+    // Process in correct order to avoid replacing content inside HTML attributes
+    let result = code;
+    
+    // First, highlight strings (before adding any HTML)
+    result = result.replace(/(".*?"|'.*?'|`.*?`)/g, '§STRING§$1§/STRING§');
+    
+    // Then comments
+    result = result.replace(/(\/\/.*)/g, '§COMMENT§$1§/COMMENT§');
+    
+    // Then keywords
+    result = result.replace(/\b(let|const|var|function|if|else|for|return|document)\b/g, '§KEYWORD§$1§/KEYWORD§');
+    
+    // Then numbers
+    result = result.replace(/\b(\d+)\b/g, '§NUMBER§$1§/NUMBER§');
+    
+    // Now convert placeholders to actual spans
+    result = result
+      .replace(/§STRING§/g, '<span class="code-string">')
+      .replace(/§\/STRING§/g, '</span>')
+      .replace(/§COMMENT§/g, '<span class="code-comment">')
+      .replace(/§\/COMMENT§/g, '</span>')
+      .replace(/§KEYWORD§/g, '<span class="code-keyword">')
+      .replace(/§\/KEYWORD§/g, '</span>')
+      .replace(/§NUMBER§/g, '<span class="code-number">')
+      .replace(/§\/NUMBER§/g, '</span>');
+    
+    return result;
   };
 
   return (
