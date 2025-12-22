@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Quiz from "@/components/Quiz";
 
 const LoopsSection = () => {
   const [boxes, setBoxes] = useState<number[]>([]);
@@ -36,6 +37,24 @@ for (let i = 1; i <= 5; i++) {
 // Box number 3
 // Box number 4
 // Box number 5`;
+
+  const quizQuestions = [
+    {
+      question: "What does i++ do in a for loop?",
+      options: ["Subtracts 1 from i", "Adds 1 to i", "Multiplies i by 2", "Resets i to 0"],
+      correctIndex: 1
+    },
+    {
+      question: "In 'for (let i = 0; i < 3; i++)', how many times does the loop run?",
+      options: ["2 times", "3 times", "4 times", "0 times"],
+      correctIndex: 1
+    },
+    {
+      question: "What is the purpose of loops?",
+      options: ["To make code run once", "To repeat code multiple times", "To stop the program", "To create variables"],
+      correctIndex: 1
+    }
+  ];
 
   return (
     <section id="loops" className="section-card">
@@ -77,6 +96,8 @@ for (let i = 1; i <= 5; i++) {
           </p>
         )}
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };

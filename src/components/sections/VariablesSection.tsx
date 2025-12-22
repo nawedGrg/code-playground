@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Quiz from "@/components/Quiz";
 
 const VariablesSection = () => {
   const [name, setName] = useState("");
@@ -24,6 +25,24 @@ age = 26;  // Now age is 26!
 
 // You can also use the variable:
 console.log("Hello, " + name);  // Shows: Hello, Alex`;
+
+  const quizQuestions = [
+    {
+      question: "What keyword do we use to create a variable?",
+      options: ["var", "let", "new", "create"],
+      correctIndex: 1
+    },
+    {
+      question: "What type of data is \"Hello\"?",
+      options: ["Number", "Boolean", "String", "Array"],
+      correctIndex: 2
+    },
+    {
+      question: "What is stored in: let isActive = true;",
+      options: ["A string", "A number", "A boolean", "An object"],
+      correctIndex: 2
+    }
+  ];
 
   return (
     <section id="variables" className="section-card">
@@ -63,6 +82,8 @@ console.log("Hello, " + name);  // Shows: Hello, Alex`;
           </p>
         )}
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };

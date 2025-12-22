@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Quiz from "@/components/Quiz";
 
 const ConditionsSection = () => {
   const [number, setNumber] = useState<number | null>(null);
@@ -34,6 +35,24 @@ if (age >= 18) {
 // age < 18   means "less than 18"
 // age === 18 means "exactly equal to 18"
 // age !== 18 means "not equal to 18"`;
+
+  const quizQuestions = [
+    {
+      question: "What does === mean in JavaScript?",
+      options: ["Less than", "Greater than", "Exactly equal to", "Not equal to"],
+      correctIndex: 2
+    },
+    {
+      question: "When does the 'else' block run?",
+      options: ["Always", "When the if condition is true", "When the if condition is false", "Never"],
+      correctIndex: 2
+    },
+    {
+      question: "What does >= mean?",
+      options: ["Greater than", "Less than", "Greater than or equal to", "Not equal"],
+      correctIndex: 2
+    }
+  ];
 
   return (
     <section id="conditions" className="section-card">
@@ -72,6 +91,8 @@ if (age >= 18) {
           </p>
         )}
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };

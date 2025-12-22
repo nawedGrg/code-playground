@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import { Button } from "@/components/ui/button";
+import Quiz from "@/components/Quiz";
 
 const UserInputSection = () => {
   const [inputValue, setInputValue] = useState("");
@@ -31,6 +32,19 @@ userButton.addEventListener("click", function() {
   // Show the greeting
   alert(message);
 });`;
+
+  const quizQuestions = [
+    {
+      question: "How do you get what a user typed in an input field?",
+      options: ["input.text", "input.value", "input.content", "input.data"],
+      correctIndex: 1
+    },
+    {
+      question: "What does the + operator do with strings?",
+      options: ["Adds numbers", "Joins text together", "Subtracts", "Multiplies"],
+      correctIndex: 1
+    }
+  ];
 
   return (
     <section id="user-input" className="section-card">
@@ -68,6 +82,8 @@ userButton.addEventListener("click", function() {
           </p>
         )}
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };
