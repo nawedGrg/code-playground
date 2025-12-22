@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import { Button } from "@/components/ui/button";
+import Quiz from "@/components/Quiz";
 
 const MiniGameSection = () => {
   const [score, setScore] = useState(0);
@@ -72,6 +73,24 @@ setInterval(function() {
 
 // Moving the target uses random numbers and DOM`;
 
+  const quizQuestions = [
+    {
+      question: "What JavaScript concept is used to track points in the game?",
+      options: ["Loops", "Variables", "HTML", "CSS"],
+      correctIndex: 1
+    },
+    {
+      question: "What runs every 1000 milliseconds (1 second) in the game?",
+      options: ["Click event", "For loop", "setInterval timer", "If statement"],
+      correctIndex: 2
+    },
+    {
+      question: "Which concepts from this course does the mini game use?",
+      options: ["Only variables", "Only click events", "Only loops", "Variables, events, conditions, and DOM"],
+      correctIndex: 3
+    }
+  ];
+
   return (
     <section id="mini-game" className="section-card">
       <div className="flex items-center gap-3 mb-4">
@@ -139,6 +158,8 @@ setInterval(function() {
           )}
         </div>
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };

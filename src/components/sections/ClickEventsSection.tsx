@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Quiz from "@/components/Quiz";
 
 const ClickEventsSection = () => {
   const [clickCount, setClickCount] = useState(0);
@@ -21,6 +22,19 @@ let myButton = document.getElementById("myButton");
 myButton.addEventListener("click", function() {
   alert("You clicked me!");
 });`;
+
+  const quizQuestions = [
+    {
+      question: "What does addEventListener do?",
+      options: ["Makes the page colorful", "Waits for something to happen (like a click)", "Deletes an element", "Creates a new button"],
+      correctIndex: 1
+    },
+    {
+      question: "What happens when you click a button with a click event?",
+      options: ["Nothing", "The page refreshes", "The code inside the function runs", "The button disappears"],
+      correctIndex: 2
+    }
+  ];
 
   return (
     <section id="click-events" className="section-card">
@@ -50,6 +64,8 @@ myButton.addEventListener("click", function() {
           </p>
         )}
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };

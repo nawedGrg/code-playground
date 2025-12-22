@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
+import Quiz from "@/components/Quiz";
 
 const DOMSection = () => {
   const [displayText, setDisplayText] = useState("Hello, World!");
@@ -32,6 +33,24 @@ heading.style.color = "orange";
 // Or add new content:
 heading.innerHTML = "<strong>Bold text!</strong>";`;
 
+  const quizQuestions = [
+    {
+      question: "What does DOM stand for?",
+      options: ["Data Object Model", "Document Object Model", "Digital Online Mode", "Display Output Manager"],
+      correctIndex: 1
+    },
+    {
+      question: "Which method finds an element by its ID?",
+      options: ["findElement()", "getElementById()", "searchById()", "locateElement()"],
+      correctIndex: 1
+    },
+    {
+      question: "What property changes the text inside an element?",
+      options: ["innerHTML", "textContent", "Both can work", "Neither"],
+      correctIndex: 2
+    }
+  ];
+
   return (
     <section id="dom" className="section-card">
       <div className="flex items-center gap-3 mb-4">
@@ -62,6 +81,8 @@ heading.innerHTML = "<strong>Bold text!</strong>";`;
           )}
         </div>
       </div>
+
+      <Quiz questions={quizQuestions} />
     </section>
   );
 };
