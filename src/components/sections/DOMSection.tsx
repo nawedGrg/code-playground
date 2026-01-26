@@ -1,52 +1,39 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const DOMSection = () => {
-  const [displayText, setDisplayText] = useState("Hello, World!");
+  const { t } = useLanguage();
+  const [displayText, setDisplayText] = useState("");
   const [textChanged, setTextChanged] = useState(false);
 
   const handleTryIt = () => {
     const newTexts = [
-      "JavaScript is awesome! 🚀",
-      "You changed the DOM! ✨",
-      "Magic happening here! 🎩",
-      "Keep learning! 📚"
+      t("dom.randomText1"),
+      t("dom.randomText2"),
+      t("dom.randomText3"),
+      t("dom.randomText4")
     ];
     const randomText = newTexts[Math.floor(Math.random() * newTexts.length)];
     setDisplayText(randomText);
     setTextChanged(true);
   };
 
-  const codeExample = `// The DOM is how JavaScript "sees" your webpage
-// We can find and change any part of the page!
-
-// Find an element by its ID
-let heading = document.getElementById("myHeading");
-
-// Change its text
-heading.textContent = "New Text Here!";
-
-// You can also change colors:
-heading.style.color = "orange";
-
-// Or add new content:
-heading.innerHTML = "<strong>Bold text!</strong>";`;
-
   const quizQuestions = [
     {
-      question: "What does DOM stand for?",
-      options: ["Data Object Model", "Document Object Model", "Digital Online Mode", "Display Output Manager"],
+      question: t("dom.quiz1.question"),
+      options: [t("dom.quiz1.opt1"), t("dom.quiz1.opt2"), t("dom.quiz1.opt3"), t("dom.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "Which method finds an element by its ID?",
-      options: ["findElement()", "getElementById()", "searchById()", "locateElement()"],
+      question: t("dom.quiz2.question"),
+      options: [t("dom.quiz2.opt1"), t("dom.quiz2.opt2"), t("dom.quiz2.opt3"), t("dom.quiz2.opt4")],
       correctIndex: 1
     },
     {
-      question: "What property changes the text inside an element?",
-      options: ["innerHTML", "textContent", "Both can work", "Neither"],
+      question: t("dom.quiz3.question"),
+      options: [t("dom.quiz3.opt1"), t("dom.quiz3.opt2"), t("dom.quiz3.opt3"), t("dom.quiz3.opt4")],
       correctIndex: 2
     }
   ];
@@ -57,26 +44,26 @@ heading.innerHTML = "<strong>Bold text!</strong>";`;
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           3
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">Changing Text (DOM)</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("dom.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        The <strong className="text-foreground">DOM</strong> (Document Object Model) is how JavaScript 
-        sees your webpage. With it, you can find any element and change its text, color, or style!
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("dom.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} onTryIt={handleTryIt} />
+      <CodeBlock code={t("dom.code")} onTryIt={handleTryIt} />
 
       <div className={`demo-area mt-6 ${textChanged ? 'active' : ''}`}>
         <div className="text-center">
           <p 
             className={`text-2xl font-bold transition-all duration-300 ${textChanged ? 'text-primary scale-110' : 'text-foreground'}`}
           >
-            {displayText}
+            {textChanged ? displayText : t("dom.helloWorld")}
           </p>
           {textChanged && (
             <p className="text-sm text-muted-foreground mt-2 animate-slide-up">
-              ↑ This text was changed with JavaScript!
+              {t("dom.textChanged")}
             </p>
           )}
         </div>

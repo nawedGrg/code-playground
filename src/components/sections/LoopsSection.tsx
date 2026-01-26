@@ -1,8 +1,10 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const LoopsSection = () => {
+  const { t } = useLanguage();
   const [boxes, setBoxes] = useState<number[]>([]);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -19,39 +21,20 @@ const LoopsSection = () => {
     }
   };
 
-  const codeExample = `// Loops repeat code multiple times
-// "for" loops are perfect when you know how many times
-
-for (let i = 1; i <= 5; i++) {
-  console.log("Box number " + i);
-}
-
-// How it works:
-// let i = 1     → Start at 1
-// i <= 5        → Keep going while i is 5 or less
-// i++           → Add 1 to i after each loop
-
-// This prints:
-// Box number 1
-// Box number 2
-// Box number 3
-// Box number 4
-// Box number 5`;
-
   const quizQuestions = [
     {
-      question: "What does i++ do in a for loop?",
-      options: ["Subtracts 1 from i", "Adds 1 to i", "Multiplies i by 2", "Resets i to 0"],
+      question: t("loop.quiz1.question"),
+      options: [t("loop.quiz1.opt1"), t("loop.quiz1.opt2"), t("loop.quiz1.opt3"), t("loop.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "In 'for (let i = 0; i < 3; i++)', how many times does the loop run?",
-      options: ["2 times", "3 times", "4 times", "0 times"],
+      question: t("loop.quiz2.question"),
+      options: [t("loop.quiz2.opt1"), t("loop.quiz2.opt2"), t("loop.quiz2.opt3"), t("loop.quiz2.opt4")],
       correctIndex: 1
     },
     {
-      question: "What is the purpose of loops?",
-      options: ["To make code run once", "To repeat code multiple times", "To stop the program", "To create variables"],
+      question: t("loop.quiz3.question"),
+      options: [t("loop.quiz3.opt1"), t("loop.quiz3.opt2"), t("loop.quiz3.opt3"), t("loop.quiz3.opt4")],
       correctIndex: 1
     }
   ];
@@ -62,15 +45,15 @@ for (let i = 1; i <= 5; i++) {
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           6
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">For Loops</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("loop.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        <strong className="text-foreground">Loops</strong> repeat code automatically. Instead of writing 
-        the same code 100 times, you write it once and let the loop repeat it!
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("loop.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} onTryIt={handleTryIt} />
+      <CodeBlock code={t("loop.code")} onTryIt={handleTryIt} />
 
       <div className={`demo-area mt-6 ${boxes.length > 0 ? 'active' : ''}`}>
         {boxes.length > 0 ? (
@@ -86,13 +69,13 @@ for (let i = 1; i <= 5; i++) {
             ))}
             {!isRunning && boxes.length === 5 && (
               <p className="w-full text-center mt-4 text-success font-semibold animate-slide-up">
-                Loop created 5 boxes! 🎉
+                {t("loop.demoSuccess")}
               </p>
             )}
           </div>
         ) : (
           <p className="text-muted-foreground text-center">
-            Click "Try it!" to see a loop create 5 boxes
+            {t("loop.demoInactive")}
           </p>
         )}
       </div>

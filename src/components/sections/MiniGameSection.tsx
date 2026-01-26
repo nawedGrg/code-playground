@@ -2,8 +2,10 @@ import { useState, useEffect, useCallback } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import { Button } from "@/components/ui/button";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MiniGameSection = () => {
+  const { t } = useLanguage();
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(10);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -50,43 +52,20 @@ const MiniGameSection = () => {
     return () => clearInterval(timer);
   }, [isPlaying, score]);
 
-  const codeExample = `// This mini game uses everything we learned!
-
-// Variables to track the game
-let score = 0;
-let timeLeft = 10;
-
-// Click event on the target
-target.addEventListener("click", function() {
-  score = score + 1;           // Add 1 to score
-  moveTarget();                // Move to new position
-});
-
-// Timer using setInterval (runs every 1 second)
-setInterval(function() {
-  timeLeft = timeLeft - 1;     // Subtract 1 from time
-  
-  if (timeLeft <= 0) {         // Condition: time up?
-    endGame();
-  }
-}, 1000);
-
-// Moving the target uses random numbers and DOM`;
-
   const quizQuestions = [
     {
-      question: "What JavaScript concept is used to track points in the game?",
-      options: ["Loops", "Variables", "HTML", "CSS"],
+      question: t("game.quiz1.question"),
+      options: [t("game.quiz1.opt1"), t("game.quiz1.opt2"), t("game.quiz1.opt3"), t("game.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "What runs every 1000 milliseconds (1 second) in the game?",
-      options: ["Click event", "For loop", "setInterval timer", "If statement"],
+      question: t("game.quiz2.question"),
+      options: [t("game.quiz2.opt1"), t("game.quiz2.opt2"), t("game.quiz2.opt3"), t("game.quiz2.opt4")],
       correctIndex: 2
     },
     {
-      question: "Which concepts from this course does the mini game use?",
-      options: ["Only variables", "Only click events", "Only loops", "Variables, events, conditions, and DOM"],
+      question: t("game.quiz3.question"),
+      options: [t("game.quiz3.opt1"), t("game.quiz3.opt2"), t("game.quiz3.opt3"), t("game.quiz3.opt4")],
       correctIndex: 3
     }
   ];
@@ -97,33 +76,32 @@ setInterval(function() {
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           7
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">Mini Game: Click Challenge!</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("game.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        Time to put it all together! This game uses <strong className="text-foreground">click events</strong>, 
-        <strong className="text-foreground"> variables</strong>, <strong className="text-foreground">DOM manipulation</strong>, 
-        and <strong className="text-foreground">conditions</strong>. Click the orange circle as many times as you can!
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("game.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} showTryButton={false} />
+      <CodeBlock code={t("game.code")} showTryButton={false} />
 
       <div className="mt-6 rounded-xl border-2 border-border bg-secondary/30 p-4">
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-6">
             <div className="text-center">
-              <p className="text-sm text-muted-foreground">Score</p>
+              <p className="text-sm text-muted-foreground">{t("game.score")}</p>
               <p className="text-3xl font-bold text-primary">{score}</p>
             </div>
             <div className="text-center">
-              <p className="text-sm text-muted-foreground">Time</p>
+              <p className="text-sm text-muted-foreground">{t("game.time")}</p>
               <p className={`text-3xl font-bold ${timeLeft <= 3 ? 'text-destructive' : 'text-foreground'}`}>
                 {timeLeft}s
               </p>
             </div>
           </div>
           <div className="text-center">
-            <p className="text-sm text-muted-foreground">High Score</p>
+            <p className="text-sm text-muted-foreground">{t("game.highScore")}</p>
             <p className="text-2xl font-bold text-success">{highScore}</p>
           </div>
         </div>
@@ -142,17 +120,17 @@ setInterval(function() {
             />
           ) : gameOver ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/90">
-              <p className="text-2xl font-bold text-foreground mb-2">Game Over!</p>
-              <p className="text-lg text-muted-foreground mb-4">You scored: <span className="text-primary font-bold">{score}</span></p>
+              <p className="text-2xl font-bold text-foreground mb-2">{t("game.gameOver")}</p>
+              <p className="text-lg text-muted-foreground mb-4">{t("game.youScored")} <span className="text-primary font-bold">{score}</span></p>
               <Button variant="hero" size="lg" onClick={startGame}>
-                Play Again
+                {t("game.playAgain")}
               </Button>
             </div>
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <p className="text-xl text-muted-foreground mb-4">Click the orange circles as fast as you can!</p>
+              <p className="text-xl text-muted-foreground mb-4">{t("game.instructions")}</p>
               <Button variant="hero" size="lg" onClick={startGame}>
-                Start Game
+                {t("game.startGame")}
               </Button>
             </div>
           )}
