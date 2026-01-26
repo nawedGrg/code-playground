@@ -1,8 +1,10 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ConditionsSection = () => {
+  const { t } = useLanguage();
   const [number, setNumber] = useState<number | null>(null);
   const [result, setResult] = useState("");
 
@@ -11,45 +13,26 @@ const ConditionsSection = () => {
     setNumber(randomNum);
     
     if (randomNum >= 50) {
-      setResult("High number! 🎯");
+      setResult(t("cond.high"));
     } else {
-      setResult("Low number! 📉");
+      setResult(t("cond.low"));
     }
   };
 
-  const codeExample = `// Conditions let your code make decisions!
-// "if" checks if something is true
-
-let age = 18;
-
-if (age >= 18) {
-  // This runs if age is 18 or more
-  console.log("You are an adult!");
-} else {
-  // This runs if age is less than 18
-  console.log("You are a minor.");
-}
-
-// You can check many things:
-// age > 18   means "greater than 18"
-// age < 18   means "less than 18"
-// age === 18 means "exactly equal to 18"
-// age !== 18 means "not equal to 18"`;
-
   const quizQuestions = [
     {
-      question: "What does === mean in JavaScript?",
-      options: ["Less than", "Greater than", "Exactly equal to", "Not equal to"],
+      question: t("cond.quiz1.question"),
+      options: [t("cond.quiz1.opt1"), t("cond.quiz1.opt2"), t("cond.quiz1.opt3"), t("cond.quiz1.opt4")],
       correctIndex: 2
     },
     {
-      question: "When does the 'else' block run?",
-      options: ["Always", "When the if condition is true", "When the if condition is false", "Never"],
+      question: t("cond.quiz2.question"),
+      options: [t("cond.quiz2.opt1"), t("cond.quiz2.opt2"), t("cond.quiz2.opt3"), t("cond.quiz2.opt4")],
       correctIndex: 2
     },
     {
-      question: "What does >= mean?",
-      options: ["Greater than", "Less than", "Greater than or equal to", "Not equal"],
+      question: t("cond.quiz3.question"),
+      options: [t("cond.quiz3.opt1"), t("cond.quiz3.opt2"), t("cond.quiz3.opt3"), t("cond.quiz3.opt4")],
       correctIndex: 2
     }
   ];
@@ -60,25 +43,24 @@ if (age >= 18) {
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           5
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">If / Else Conditions</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("cond.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        <strong className="text-foreground">Conditions</strong> let your code make decisions. 
-        Use <code className="px-2 py-1 bg-code text-code-foreground rounded text-sm">if</code> to check something, 
-        and <code className="px-2 py-1 bg-code text-code-foreground rounded text-sm">else</code> for what happens if it's not true.
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("cond.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} onTryIt={handleTryIt} />
+      <CodeBlock code={t("cond.code")} onTryIt={handleTryIt} />
 
       <div className={`demo-area mt-6 ${number !== null ? 'active' : ''}`}>
         {number !== null ? (
           <div className="text-center animate-slide-up">
             <div className="space-y-2">
-              <p className="text-muted-foreground">Random number generated:</p>
+              <p className="text-muted-foreground">{t("cond.randomGenerated")}</p>
               <p className="text-4xl font-bold text-primary">{number}</p>
               <p className="text-sm text-muted-foreground">
-                Checking: <code className="px-2 py-1 bg-code text-code-foreground rounded">if (number &gt;= 50)</code>
+                {t("cond.checking")} <code className="px-2 py-1 bg-code text-code-foreground rounded">if (number &gt;= 50)</code>
               </p>
               <p className={`text-xl font-bold ${number >= 50 ? 'text-success' : 'text-warning'}`}>
                 {result}
@@ -87,7 +69,7 @@ if (age >= 18) {
           </div>
         ) : (
           <p className="text-muted-foreground text-center">
-            Click "Try it!" to see a condition in action with a random number
+            {t("cond.demoInactive")}
           </p>
         )}
       </div>

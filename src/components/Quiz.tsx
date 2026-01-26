@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QuizQuestion {
   question: string;
@@ -13,6 +14,7 @@ interface QuizProps {
 }
 
 const Quiz = ({ questions }: QuizProps) => {
+  const { t, language } = useLanguage();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -56,13 +58,22 @@ const Quiz = ({ questions }: QuizProps) => {
           <div className="text-4xl mb-3">
             {percentage >= 80 ? "🎉" : percentage >= 50 ? "👍" : "💪"}
           </div>
-          <h4 className="text-xl font-bold text-foreground mb-2">Quiz Complete!</h4>
+          <h4 className="text-xl font-bold text-foreground mb-2">{t("quiz.complete")}</h4>
           <p className="text-muted-foreground mb-4">
-            You got <span className="text-primary font-bold">{score}</span> out of{" "}
-            <span className="font-bold">{questions.length}</span> correct ({percentage}%)
+            {language === "en" ? (
+              <>
+                {t("quiz.gotCorrect")} <span className="text-primary font-bold">{score}</span> {t("quiz.outOf")}{" "}
+                <span className="font-bold">{questions.length}</span> {t("quiz.correct")} ({percentage}%)
+              </>
+            ) : (
+              <>
+                <span className="font-bold">{questions.length}</span>{t("quiz.outOf")}
+                <span className="text-primary font-bold">{score}</span>{t("quiz.correct")} ({percentage}%)
+              </>
+            )}
           </p>
           <Button onClick={handleRetry} variant="outline" size="sm">
-            Try Again
+            {t("quiz.tryAgain")}
           </Button>
         </div>
       </div>
@@ -74,7 +85,7 @@ const Quiz = ({ questions }: QuizProps) => {
   return (
     <div className="mt-6 p-6 rounded-xl bg-card border border-border">
       <div className="flex items-center justify-between mb-4">
-        <h4 className="font-bold text-foreground">Quick Quiz</h4>
+        <h4 className="font-bold text-foreground">{t("quiz.title")}</h4>
         <span className="text-sm text-muted-foreground">
           {currentQuestion + 1} / {questions.length}
         </span>
@@ -119,7 +130,7 @@ const Quiz = ({ questions }: QuizProps) => {
       {showResult && (
         <div className="mt-4 flex justify-end">
           <Button onClick={handleNext} size="sm">
-            {currentQuestion < questions.length - 1 ? "Next Question" : "See Results"}
+            {currentQuestion < questions.length - 1 ? t("quiz.nextQuestion") : t("quiz.seeResults")}
           </Button>
         </div>
       )}

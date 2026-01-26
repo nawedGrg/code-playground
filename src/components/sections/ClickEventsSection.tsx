@@ -1,8 +1,10 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ClickEventsSection = () => {
+  const { t } = useLanguage();
   const [clickCount, setClickCount] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
 
@@ -12,26 +14,15 @@ const ClickEventsSection = () => {
     setTimeout(() => setShowFeedback(false), 2000);
   };
 
-  const codeExample = `// This is a comment - it helps explain the code
-// Click events let JavaScript respond when you click something
-
-// First, we find a button on the page
-let myButton = document.getElementById("myButton");
-
-// Then we tell it what to do when clicked
-myButton.addEventListener("click", function() {
-  alert("You clicked me!");
-});`;
-
   const quizQuestions = [
     {
-      question: "What does addEventListener do?",
-      options: ["Makes the page colorful", "Waits for something to happen (like a click)", "Deletes an element", "Creates a new button"],
+      question: t("click.quiz1.question"),
+      options: [t("click.quiz1.opt1"), t("click.quiz1.opt2"), t("click.quiz1.opt3"), t("click.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "What happens when you click a button with a click event?",
-      options: ["Nothing", "The page refreshes", "The code inside the function runs", "The button disappears"],
+      question: t("click.quiz2.question"),
+      options: [t("click.quiz2.opt1"), t("click.quiz2.opt2"), t("click.quiz2.opt3"), t("click.quiz2.opt4")],
       correctIndex: 2
     }
   ];
@@ -42,25 +33,25 @@ myButton.addEventListener("click", function() {
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           1
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">Click Events</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("click.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        A <strong className="text-foreground">click event</strong> is how JavaScript knows when you click something. 
-        It's like teaching your webpage to listen for clicks and do something in response!
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("click.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} onTryIt={handleTryIt} />
+      <CodeBlock code={t("click.code")} onTryIt={handleTryIt} />
 
       <div className={`demo-area mt-6 ${showFeedback ? 'active' : ''}`}>
         {showFeedback ? (
           <div className="text-center animate-slide-up">
             <span className="text-4xl mb-2 block">🎉</span>
-            <p className="text-xl font-bold text-primary">You clicked! Count: {clickCount}</p>
+            <p className="text-xl font-bold text-primary">{t("click.demoActive")} {clickCount}</p>
           </div>
         ) : (
           <p className="text-muted-foreground text-center">
-            Click "Try it!" above to see a click event in action
+            {t("click.demoInactive")}
           </p>
         )}
       </div>

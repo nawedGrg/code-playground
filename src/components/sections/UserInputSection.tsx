@@ -2,46 +2,30 @@ import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import { Button } from "@/components/ui/button";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const UserInputSection = () => {
+  const { t } = useLanguage();
   const [inputValue, setInputValue] = useState("");
   const [greeting, setGreeting] = useState("");
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
-      setGreeting(`Hello, ${inputValue}! Welcome to JavaScript! 👋`);
+      setGreeting(t("input.greeting").replace("{name}", inputValue));
     } else {
-      setGreeting("Please enter your name first!");
+      setGreeting(t("input.pleaseEnter"));
     }
   };
 
-  const codeExample = `// Getting input from users is super useful!
-// First, we need an input field and a button in HTML
-
-// In JavaScript, we get the value like this:
-let nameInput = document.getElementById("nameInput");
-let userButton = document.getElementById("greetButton");
-
-userButton.addEventListener("click", function() {
-  // Get what the user typed
-  let userName = nameInput.value;
-  
-  // Use it to create a greeting
-  let message = "Hello, " + userName + "!";
-  
-  // Show the greeting
-  alert(message);
-});`;
-
   const quizQuestions = [
     {
-      question: "How do you get what a user typed in an input field?",
-      options: ["input.text", "input.value", "input.content", "input.data"],
+      question: t("input.quiz1.question"),
+      options: [t("input.quiz1.opt1"), t("input.quiz1.opt2"), t("input.quiz1.opt3"), t("input.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "What does the + operator do with strings?",
-      options: ["Adds numbers", "Joins text together", "Subtracts", "Multiplies"],
+      question: t("input.quiz2.question"),
+      options: [t("input.quiz2.opt1"), t("input.quiz2.opt2"), t("input.quiz2.opt3"), t("input.quiz2.opt4")],
       correctIndex: 1
     }
   ];
@@ -52,32 +36,32 @@ userButton.addEventListener("click", function() {
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           4
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">User Input</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("input.title")}</h2>
       </div>
       
-      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        JavaScript can read what users type in text boxes! This is how forms, search bars, 
-        and interactive apps work. We use <code className="px-2 py-1 bg-code text-code-foreground rounded text-sm">.value</code> to get the text.
-      </p>
+      <p 
+        className="text-lg text-muted-foreground mb-6 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: t("input.explanation") }}
+      />
 
-      <CodeBlock code={codeExample} showTryButton={false} />
+      <CodeBlock code={t("input.code")} showTryButton={false} />
 
       <div className="demo-area mt-6 flex-col gap-4">
-        <p className="text-muted-foreground mb-2">Try it yourself:</p>
+        <p className="text-muted-foreground mb-2">{t("input.tryItYourself")}</p>
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
           <input
             type="text"
-            placeholder="Enter your name..."
+            placeholder={t("input.placeholder")}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             className="flex-1 px-4 py-2 rounded-lg border-2 border-border bg-background text-foreground focus:border-primary focus:outline-none transition-colors"
           />
           <Button variant="default" onClick={handleSubmit}>
-            Say Hello!
+            {t("input.sayHello")}
           </Button>
         </div>
         {greeting && (
-          <p className={`text-xl font-bold mt-4 animate-slide-up ${greeting.includes("Please") ? 'text-warning' : 'text-success'}`}>
+          <p className={`text-xl font-bold mt-4 animate-slide-up ${greeting === t("input.pleaseEnter") ? 'text-warning' : 'text-success'}`}>
             {greeting}
           </p>
         )}

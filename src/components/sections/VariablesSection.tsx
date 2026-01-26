@@ -1,45 +1,34 @@
 import { useState } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import Quiz from "@/components/Quiz";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const VariablesSection = () => {
+  const { t, language } = useLanguage();
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [showDemo, setShowDemo] = useState(false);
 
   const handleTryIt = () => {
-    setName("Alex");
+    setName(language === "ja" ? "太郎" : "Alex");
     setAge(25);
     setShowDemo(true);
   };
 
-  const codeExample = `// Variables are like boxes that store information
-// We use "let" to create a variable
-
-let name = "Alex";     // This stores text (a "string")
-let age = 25;          // This stores a number
-let isHappy = true;    // This stores true or false (a "boolean")
-
-// You can change variables later:
-age = 26;  // Now age is 26!
-
-// You can also use the variable:
-console.log("Hello, " + name);  // Shows: Hello, Alex`;
-
   const quizQuestions = [
     {
-      question: "What keyword do we use to create a variable?",
-      options: ["var", "let", "new", "create"],
+      question: t("var.quiz1.question"),
+      options: [t("var.quiz1.opt1"), t("var.quiz1.opt2"), t("var.quiz1.opt3"), t("var.quiz1.opt4")],
       correctIndex: 1
     },
     {
-      question: "What type of data is \"Hello\"?",
-      options: ["Number", "Boolean", "String", "Array"],
+      question: t("var.quiz2.question"),
+      options: [t("var.quiz2.opt1"), t("var.quiz2.opt2"), t("var.quiz2.opt3"), t("var.quiz2.opt4")],
       correctIndex: 2
     },
     {
-      question: "What is stored in: let isActive = true;",
-      options: ["A string", "A number", "A boolean", "An object"],
+      question: t("var.quiz3.question"),
+      options: [t("var.quiz3.opt1"), t("var.quiz3.opt2"), t("var.quiz3.opt3"), t("var.quiz3.opt4")],
       correctIndex: 2
     }
   ];
@@ -50,16 +39,14 @@ console.log("Hello, " + name);  // Shows: Hello, Alex`;
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg">
           2
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">Variables (let)</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("var.title")}</h2>
       </div>
       
       <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-        <strong className="text-foreground">Variables</strong> are like labeled boxes that store information. 
-        Use <code className="px-2 py-1 bg-code text-code-foreground rounded text-sm">let</code> to create a box, 
-        then give it a name and put something inside!
+        <span dangerouslySetInnerHTML={{ __html: t("var.explanation") }} />
       </p>
 
-      <CodeBlock code={codeExample} onTryIt={handleTryIt} />
+      <CodeBlock code={t("var.code")} onTryIt={handleTryIt} />
 
       <div className={`demo-area mt-6 ${showDemo ? 'active' : ''}`}>
         {showDemo ? (
@@ -74,11 +61,11 @@ console.log("Hello, " + name);  // Shows: Hello, Alex`;
                 <span className="font-bold text-code-number">{age}</span>
               </div>
             </div>
-            <p className="text-success font-semibold">Variables created! They hold your data.</p>
+            <p className="text-success font-semibold">{t("var.demoSuccess")}</p>
           </div>
         ) : (
           <p className="text-muted-foreground text-center">
-            Click "Try it!" to see variables being created
+            {t("var.demoInactive")}
           </p>
         )}
       </div>
