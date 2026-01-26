@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 interface NavItem {
   id: string;
-  label: string;
+  labelKey: string;
   number: number;
 }
 
 const navItems: NavItem[] = [
-  { id: "click-events", label: "Click Events", number: 1 },
-  { id: "variables", label: "Variables", number: 2 },
-  { id: "dom", label: "DOM", number: 3 },
-  { id: "user-input", label: "Input", number: 4 },
-  { id: "conditions", label: "If/Else", number: 5 },
-  { id: "loops", label: "Loops", number: 6 },
-  { id: "mini-game", label: "Game", number: 7 },
+  { id: "click-events", labelKey: "section.clickEvents", number: 1 },
+  { id: "variables", labelKey: "section.variables", number: 2 },
+  { id: "dom", labelKey: "section.dom", number: 3 },
+  { id: "user-input", labelKey: "section.input", number: 4 },
+  { id: "conditions", labelKey: "section.conditions", number: 5 },
+  { id: "loops", labelKey: "section.loops", number: 6 },
+  { id: "mini-game", labelKey: "section.game", number: 7 },
 ];
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +52,7 @@ const Navigation = () => {
   if (!isVisible) return null;
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-card/90 backdrop-blur-md rounded-full px-2 py-2 shadow-lg border border-border hidden md:flex gap-1">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-card/90 backdrop-blur-md rounded-full px-2 py-2 shadow-lg border border-border hidden md:flex items-center gap-1">
       {navItems.map((item) => (
         <button
           key={item.id}
@@ -63,9 +66,12 @@ const Navigation = () => {
           <span className="w-5 h-5 rounded-full bg-current/10 flex items-center justify-center text-xs">
             {item.number}
           </span>
-          <span className="hidden lg:inline">{item.label}</span>
+          <span className="hidden lg:inline">{t(item.labelKey)}</span>
         </button>
       ))}
+      <div className="ml-2 pl-2 border-l border-border">
+        <LanguageSelector />
+      </div>
     </nav>
   );
 };
